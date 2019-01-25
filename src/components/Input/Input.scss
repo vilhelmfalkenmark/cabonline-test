@@ -1,0 +1,33 @@
+@import '~styles/colors';
+@import '~styles/variables';
+
+.container {
+	width: 100%;
+}
+
+.label {
+	color: $grey4;
+	margin-left: $base-margin;
+	margin-bottom: $base-margin;
+	font-size: 12px;
+	display: block;
+}
+
+.input {
+	font-size: 1.6rem;
+	border: 1px solid $grey4;
+	padding: $base-margin $double-base-margin;
+	border-radius: $triple-base-margin;
+	min-height: $five-base-margin;
+	width: 100%;
+	display: block;
+	outline: none;
+
+	&::placeholder {
+		font-size: 14px;
+	}
+
+	&:focus {
+		border: 1px solid $offorange;
+	}
+}

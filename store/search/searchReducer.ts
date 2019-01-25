@@ -6,7 +6,7 @@ const iS = {
 	fetching: false,
 	rejected: false,
 	errorMessage: null,
-	data: {}
+	data: []
 };
 
 const searchReducer = (state = iS, action) => {
@@ -24,7 +24,7 @@ const searchReducer = (state = iS, action) => {
 			return { ...state, fetching: true, fulfilled: false, data: {} };
 		}
 		case SEARCH_FULFILLED: {
-			return { ...state, fetching: false, fulfilled: true, data: { ...action.payload } };
+			return { ...state, fetching: false, fulfilled: true, data: [...action.payload.data] };
 		}
 		case SEARCH_REJECTED: {
 			return {
@@ -33,7 +33,7 @@ const searchReducer = (state = iS, action) => {
 				rejected: true,
 				errorMessage: action.payload,
 				fulfilled: false,
-				data: {}
+				data: []
 			};
 		}
 		default:

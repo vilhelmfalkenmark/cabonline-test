@@ -17,6 +17,7 @@
 		"baseUrl": ".",
 		"paths": {
 			"root/*": ["./*"],
+			"server/*": ["server/*"],
 			"components/*": ["src/components/*"],
 			"hocs/*": ["src/hocs/*"],
 			"styles/*": ["src/styles/*"],

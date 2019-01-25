@@ -1,7 +1,7 @@
 {
 	"extends": ["airbnb-base", "prettier", "prettier/react", "eslint:recommended", "plugin:react/recommended"],
-	"parser": "babel-eslint",
-	"plugins": ["react", "prettier", "import"],
+	"parser": "typescript-eslint-parser",
+	"plugins": ["typescript", "react", "prettier", "import"],
 	"env": {
 		"es6": true,
 		"node": true,
@@ -18,5 +18,8 @@
 				"paths": ["src", ".", "./"]
 			}
 		}
+	},
+	"rules": {
+		"no-console": "warn"
 	}
 }
