@@ -1,10 +1,12 @@
 import React from 'react';
-import SearchField from 'components/SearchField/SearchField';
+import Search from 'components/Search/Search';
+import Map from 'components/Map/Map';
 
 const IndexPage: React.FunctionComponent = () => {
 	return (
-		<main>
-			<SearchField />
+		<main className={'main-container'}>
+			<Search />
+			<Map />
 		</main>
 	);
 };

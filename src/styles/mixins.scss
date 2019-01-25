@@ -1,0 +1,19 @@
+// Usage: @include breakpoint($mq, $lg - 1)
+@mixin breakpoint($min, $max: null) {
+	@if $max {
+		@media only screen and (min-width: $min) and (max-width: $max) {
+			@content;
+		}
+	} @else {
+		@media only screen and (min-width: $min) {
+			@content;
+		}
+	}
+}
+
+@mixin center-absolute() {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}

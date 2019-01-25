@@ -1,0 +1,53 @@
+@import '~styles/colors';
+@import '~styles/variables';
+@import '~styles/mixins';
+
+@keyframes rotate {
+	0% {
+		transform: rotate(0deg);
+	}
+	50% {
+		transform: rotate(180deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.container {
+	list-style: none;
+	max-height: 400px;
+	position: relative;
+	overflow-y: auto;
+}
+
+.item {
+	width: 100%;
+	border-bottom: 0.1rem solid $grey1;
+	min-height: $four-base-margin;
+}
+
+.button {
+	text-align: left;
+	font-size: $font-size-medium;
+	width: 100%;
+	padding: $base-margin $two-base-margin;
+	background: $white;
+	border: none;
+}
+
+.spinnerContainer {
+	@include center-absolute;
+}
+
+.spinner {
+	display: block;
+	height: $four-base-margin;
+	width: $four-base-margin;
+	border-radius: 50%;
+	border-top: $half-base-margin solid $grey1;
+	border-left: $half-base-margin solid $grey1;
+	border-bottom: $half-base-margin solid $grey1;
+	border-right: $half-base-margin solid $yellow;
+	animation: rotate 1s infinite linear;
+}

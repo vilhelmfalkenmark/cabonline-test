@@ -14,20 +14,20 @@
 }
 
 .input {
-	font-size: 1.6rem;
-	border: 1px solid $grey4;
-	padding: $base-margin $double-base-margin;
-	border-radius: $triple-base-margin;
+	font-size: $font-size-medium;
+	border: 1px solid $white;
+	padding: $base-margin $two-base-margin;
 	min-height: $five-base-margin;
 	width: 100%;
 	display: block;
 	outline: none;
+	border-bottom: 2px solid $yellow;
 
 	&::placeholder {
-		font-size: 14px;
+		font-size: $font-size-medium;
 	}
 
 	&:focus {
-		border: 1px solid $offorange;
+		border-color: $yellow;
 	}
 }

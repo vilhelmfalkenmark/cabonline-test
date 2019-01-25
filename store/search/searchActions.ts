@@ -1,8 +1,25 @@
 import axios from 'axios';
 import { baseAsyncRequest } from 'utils/network/asyncRequestSetup';
 
-import { SEARCH_FETCHING, SEARCH_FULFILLED, SEARCH_REJECTED, UPDATE_SEARCH_TERM } from 'store/actionTypes';
+import {
+	SEARCH_FETCHING,
+	SEARCH_FULFILLED,
+	SEARCH_REJECTED,
+	UPDATE_SEARCH_TERM,
+	ADDRESS_SELECTED
+} from 'store/actionTypes';
 
+/**
+ * @function selectAddress
+ * @param {Object} address
+ * @returns {Object} redux action
+ */
+export function selectAddress(address) {
+	return {
+		type: ADDRESS_SELECTED,
+		payload: address
+	};
+}
 /**
  * @function updateSearchTerm
  * @param {String} searchTerm e.g "Kungsgatan 5"
@@ -20,7 +37,6 @@ export function updateSearchTerm(searchTerm) {
  * @param {String} searchTerm e.g "Örebro"
  * @returns {Object} redux action wrapped in a promise
  */
-
 export function searchForContent(searchTerm) {
 	return dispatch => {
 		dispatch({ type: SEARCH_FETCHING });

@@ -16,7 +16,7 @@ class Cabonline extends App<Props, State> {
 				<Head>
 					<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 					<meta name="description" content={'Vilhelm Falkenmark test'} />
-					<title>"Vilhelm Falkenmark - Cabonline test"</title>
+					<title>Cabonline test | Vilhelm Falkenmark</title>
 				</Head>
 				<Provider store={reduxStore}>
 					<Component {...pageProps} />

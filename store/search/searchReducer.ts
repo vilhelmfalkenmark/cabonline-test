@@ -1,4 +1,10 @@
-import { SEARCH_FETCHING, SEARCH_FULFILLED, SEARCH_REJECTED, UPDATE_SEARCH_TERM } from 'store/actionTypes';
+import {
+	SEARCH_FETCHING,
+	SEARCH_FULFILLED,
+	SEARCH_REJECTED,
+	UPDATE_SEARCH_TERM,
+	ADDRESS_SELECTED
+} from 'store/actionTypes';
 
 const iS = {
 	searchTerm: '',
@@ -6,6 +12,7 @@ const iS = {
 	fetching: false,
 	rejected: false,
 	errorMessage: null,
+	selectedAddress: {},
 	data: []
 };
 
@@ -17,7 +24,12 @@ const searchReducer = (state = iS, action) => {
 			 * execution is debounced and every time the user types we want to make
 			 * sure they dont see the content from the old search results in a flicker.
 			 */
-			return { ...state, searchTerm: action.payload, fetching: true };
+			return {
+				...state,
+				searchTerm: action.payload,
+				fetching: false,
+				data: []
+			};
 		}
 
 		case SEARCH_FETCHING: {
@@ -33,6 +45,13 @@ const searchReducer = (state = iS, action) => {
 				rejected: true,
 				errorMessage: action.payload,
 				fulfilled: false,
+				data: []
+			};
+		}
+		case ADDRESS_SELECTED: {
+			return {
+				...state,
+				selectedAddress: { ...action.payload },
 				data: []
 			};
 		}

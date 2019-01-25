@@ -26,8 +26,18 @@ const apiResolver = function() {
 			});
 	});
 	/**
-	 * Veichles resolver
+	 * Veichles route
 	 */
+	router.get('/vehicles', (req, res) => {
+		baseAsyncRequest
+			.get(`/vehicles?lat=${req.query.lat}&lng=${req.query.lng}`)
+			.then(({ data }) => {
+				res.json({ data });
+			})
+			.catch(err => {
+				res.json({ err: true });
+			});
+	});
 	return router;
 };
 

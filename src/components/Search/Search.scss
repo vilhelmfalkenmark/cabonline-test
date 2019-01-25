@@ -1,0 +1,14 @@
+@import '~styles/variables';
+@import '~styles/colors';
+
+.container {
+	z-index: $z-index-two;
+
+	box-shadow: $box-shadow;
+	background: $white;
+	top: $base-margin;
+	left: $base-margin;
+	position: absolute;
+	width: 100%;
+	max-width: 460px;
+}
