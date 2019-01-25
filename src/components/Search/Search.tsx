@@ -5,6 +5,7 @@ import { debounce } from 'utils/helpers/timing';
 import { updateSearchTerm, searchForContent, selectAddress } from 'store/search/searchActions';
 import Input from 'components/Input/Input';
 import AddressList from 'components/AddressList/AddressList';
+import SelectedAddress from 'components/SelectedAddress/SelectedAddress';
 
 import styles from './Search.scss';
 
@@ -59,16 +60,19 @@ class Search extends Component<Props> {
 	}
 
 	render() {
-		const { searchTerm, fetching, data, fulfilled } = this.props;
+		const { searchTerm, fetching, data, fulfilled, selectedAddress } = this.props;
 		return (
 			<div className={s('container')}>
-				<Input value={searchTerm} onChangeCallback={this.updateSearchTerm} placeholder="Sök" />
-				<AddressList
-					data={data}
-					fetching={fetching}
-					fulfilled={fulfilled}
-					onSelectCallback={this.selectAddress}
-				/>
+				<form className={s('form')}>
+					<Input value={searchTerm} onChangeCallback={this.updateSearchTerm} placeholder="Sök" />
+					<AddressList
+						data={data}
+						fetching={fetching}
+						fulfilled={fulfilled}
+						onSelectCallback={this.selectAddress}
+					/>
+				</form>
+				<SelectedAddress selectedAddress={selectedAddress} />
 			</div>
 		);
 	}
@@ -78,6 +82,7 @@ const mapStateToProps = ({ search }) => ({
 	searchTerm: search.searchTerm,
 	fetching: search.fetching,
 	fulfilled: search.fulfilled,
+	selectedAddress: search.selectedAddress,
 	data: search.data
 });
 

@@ -3,12 +3,17 @@
 
 .container {
 	z-index: $z-index-two;
+	padding: $base-margin;
+	position: absolute;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+}
 
+.form {
 	box-shadow: $box-shadow;
 	background: $white;
-	top: $base-margin;
-	left: $base-margin;
-	position: absolute;
 	width: 100%;
 	max-width: 460px;
 }

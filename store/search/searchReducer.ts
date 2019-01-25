@@ -19,11 +19,6 @@ const iS = {
 const searchReducer = (state = iS, action) => {
 	switch (action.type) {
 		case UPDATE_SEARCH_TERM: {
-			/**
-			 *  The reason we set fetching to true is due to the fact that the search
-			 * execution is debounced and every time the user types we want to make
-			 * sure they dont see the content from the old search results in a flicker.
-			 */
 			return {
 				...state,
 				searchTerm: action.payload,
@@ -51,6 +46,7 @@ const searchReducer = (state = iS, action) => {
 		case ADDRESS_SELECTED: {
 			return {
 				...state,
+				searchTerm: '',
 				selectedAddress: { ...action.payload },
 				data: []
 			};
