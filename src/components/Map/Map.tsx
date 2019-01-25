@@ -7,6 +7,8 @@ import styles from './Map.scss';
 import { MapStyles } from './MapStyles';
 import { getPosition } from 'utils/helpers/geoLocation';
 import { isObjectWithValues } from 'utils/helpers/objects';
+import { AddressEntity } from 'model/addressEntity';
+import { getVehiclesPositions } from 'utils/selectors/vehicles';
 
 const s = classNames.bind(styles);
 
@@ -20,8 +22,8 @@ const GoogleMaps = withScriptjs(
 		<GoogleMap
 			defaultZoom={12}
 			defaultCenter={{
-				lat: path(['coords', 'latitude'], userPosition) || STOCKHOLM.lat,
-				lng: path(['coords', 'longitude'], userPosition) || STOCKHOLM.lng
+				lat: userPosition ? path(['coords', 'latitude'], userPosition) : STOCKHOLM.lat,
+				lng: userPosition ? path(['coords', 'longitude'], userPosition) : STOCKHOLM.lng
 			}}
 			center={{
 				lat: path(['latitude'], selectedAddress) || path(['coords', 'latitude'], userPosition),
@@ -53,6 +55,10 @@ const GoogleMaps = withScriptjs(
 	))
 );
 
+interface Props {
+	selectedAddress: AddressEntity;
+}
+
 class Map extends Component<Props, State> {
 	constructor() {
 		super();
@@ -77,13 +83,14 @@ class Map extends Component<Props, State> {
 	}
 
 	render() {
-		const { selectedAddress } = this.props;
+		const { selectedAddress, vehicles } = this.props;
 		const { userPosition } = this.state;
 
 		return (
 			<div className={s('container')}>
 				<GoogleMaps
-					userPosition={userPosition}
+					userPosition={isObjectWithValues(userPosition) ? userPosition : null}
+					vehiclePositions={getVehiclesPositions(vehicles)}
 					selectedAddress={selectedAddress}
 					isMarkerShown={isObjectWithValues(selectedAddress)}
 					googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2vvL4RqLyLTIwBZ0xiIHXdvEiz7h_PJA&v=3.exp&libraries=geometry,drawing,places"
@@ -96,8 +103,9 @@ class Map extends Component<Props, State> {
 	}
 }
 
-const mapStateToProps = ({ search }) => ({
-	selectedAddress: search.selectedAddress
+const mapStateToProps = ({ search, vehicles }) => ({
+	selectedAddress: search.selectedAddress,
+	vehicles: vehicles
 });
 
 export default connect(mapStateToProps)(Map);

@@ -1,12 +1,11 @@
 const express = require('express');
 const next = require('next');
 const api = require('./api/index.ts');
+const { envIsDev, localPort } = require('../utils/config.ts');
 
-const isDev = process.env.NODE_ENV === 'development';
-
-const app = next({ dev: isDev });
+const app = next({ dev: envIsDev });
 const handle = app.getRequestHandler();
-const PORT = process.env.PORT || 1337;
+const PORT = process.env.PORT || localPort;
 
 app.prepare()
 	.then(() => {
@@ -15,7 +14,7 @@ app.prepare()
 		// Api request
 		server.use('/api', api());
 
-		// Search Page
+		// Application Page
 		server.get('/', (req, res) => {
 			app.render(req, res, '/index');
 		});

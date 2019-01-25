@@ -3,7 +3,7 @@ import {
 	SEARCH_FULFILLED,
 	SEARCH_REJECTED,
 	UPDATE_SEARCH_TERM,
-	ADDRESS_SELECTED
+	SET_SELECTED_ADDRESS
 } from 'store/actionTypes';
 
 const iS = {
@@ -43,7 +43,7 @@ const searchReducer = (state = iS, action) => {
 				data: []
 			};
 		}
-		case ADDRESS_SELECTED: {
+		case SET_SELECTED_ADDRESS: {
 			return {
 				...state,
 				searchTerm: '',

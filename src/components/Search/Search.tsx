@@ -2,10 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
 import { debounce } from 'utils/helpers/timing';
-import { updateSearchTerm, searchForContent, selectAddress } from 'store/search/searchActions';
+import {
+	updateSearchTerm,
+	searchForContent,
+	setSelectedAddress,
+	clearSelectedAddress
+} from 'store/search/searchActions';
+import { fetchVehiclesLocation } from 'store/vehicles/vehiclesActions';
 import Input from 'components/Input/Input';
 import AddressList from 'components/AddressList/AddressList';
 import SelectedAddress from 'components/SelectedAddress/SelectedAddress';
+import { AddressEntity } from 'model/addressEntity';
 
 import styles from './Search.scss';
 
@@ -15,13 +22,14 @@ const SEARCH_DEBOUNCE_MILLISECONDS = 500;
 const MINIMUM_SEARCH_CHARACTHERS = 3;
 
 type Props = {
-	searchTerm: String;
-	fetching: Boolean;
-	fulfilled: Boolean;
-	rejected: Boolean;
-	data: Array;
-	updateSearchTerm: Function;
-	searchForContent: Function;
+	searchTerm: string;
+	fetching: boolean;
+	fulfilled: boolean;
+	rejected: boolean;
+	data: AddressEntity[];
+	setSelectedAddress: ((AddressEntity) => AddressEntity);
+	updateSearchTerm: ((string) => string);
+	searchForContent: ((string) => string);
 };
 
 class Search extends Component<Props> {
@@ -29,15 +37,28 @@ class Search extends Component<Props> {
 		super();
 		this.updateSearchTerm = this.updateSearchTerm.bind(this);
 		this.searchForContent = debounce(SEARCH_DEBOUNCE_MILLISECONDS, this.searchForContent.bind(this));
-		this.selectAddress = this.selectAddress.bind(this);
+		this.setSelectedAddress = this.setSelectedAddress.bind(this);
 	}
 
 	/**
-	 * @function searchForContent
+	 * @function setSelectedAddress
+	 * @param {Object} selectedAddress
+	 */
+	setSelectedAddress(selectedAddress) {
+		this.props.setSelectedAddress(selectedAddress);
+
+		this.props.fetchVehiclesLocation({
+			lng: selectedAddress.longitude,
+			lat: selectedAddress.latitude
+		});
+	}
+
+	/**
+	 * @function clearSelectedAddress
 	 * @param {Object} address
 	 */
-	selectAddress(address) {
-		this.props.selectAddress(address);
+	clearSelectedAddress() {
+		this.props.clearSelectedAddress();
 	}
 
 	/**
@@ -69,7 +90,7 @@ class Search extends Component<Props> {
 						data={data}
 						fetching={fetching}
 						fulfilled={fulfilled}
-						onSelectCallback={this.selectAddress}
+						onSelectCallback={this.setSelectedAddress}
 					/>
 				</form>
 				<SelectedAddress selectedAddress={selectedAddress} />
@@ -93,8 +114,14 @@ const mapDispatchToProps = dispatch => ({
 	searchForContent: searchTerm => {
 		dispatch(searchForContent(searchTerm));
 	},
-	selectAddress: address => {
-		dispatch(selectAddress(address));
+	setSelectedAddress: selectedAddress => {
+		dispatch(setSelectedAddress(selectedAddress));
+	},
+	clearSelectedAddress: () => {
+		dispatch(clearSelectedAddress());
+	},
+	fetchVehiclesLocation: ({ lng, lat }) => {
+		dispatch(fetchVehiclesLocation({ lng, lat }));
 	}
 });
 

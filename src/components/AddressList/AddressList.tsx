@@ -1,16 +1,17 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './AddressList.scss';
+import { AddressEntity } from 'model/addressEntity';
 
 const s = classNames.bind(styles);
 
-type Props = {
-	fetching: Boolean;
-	fulfilled: Boolean;
-	rejected: Boolean;
-	onSelectCallback: Function;
-	data: Array;
-};
+interface Props {
+	fetching: boolean;
+	fulfilled: boolean;
+	rejected: boolean;
+	onSelectCallback: ((AddressEntity) => AddressEntity);
+	data: AddressEntity[];
+}
 
 const AddressList: React.FunctionComponent<Props> = ({ fetching, data, rejected, fulfilled, onSelectCallback }) => {
 	if (fetching) {

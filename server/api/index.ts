@@ -1,10 +1,11 @@
 const { Router } = require('express');
 const axios = require('axios');
+const { externalApiHost } = require('../../utils/config.ts');
 
 const router = Router();
 
 const baseAsyncRequest = axios.create({
-	baseURL: 'https://cabonline-frontend-test.herokuapp.com', // TODO Make into config
+	baseURL: 'https://cabonline-frontend-test.herokuapp.com',
 	timeout: 20000
 });
 

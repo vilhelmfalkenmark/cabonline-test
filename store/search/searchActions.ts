@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { baseAsyncRequest } from 'utils/network/asyncRequestSetup';
 
 import {
@@ -6,18 +5,18 @@ import {
 	SEARCH_FULFILLED,
 	SEARCH_REJECTED,
 	UPDATE_SEARCH_TERM,
-	ADDRESS_SELECTED
+	SET_SELECTED_ADDRESS
 } from 'store/actionTypes';
 
 /**
- * @function selectAddress
- * @param {Object} address
+ * @function setSelectedAddress
+ * @param {Object} selectedAddress
  * @returns {Object} redux action
  */
-export function selectAddress(address) {
+export function setSelectedAddress(selectedAddress) {
 	return {
-		type: ADDRESS_SELECTED,
-		payload: address
+		type: SET_SELECTED_ADDRESS,
+		payload: selectedAddress
 	};
 }
 /**

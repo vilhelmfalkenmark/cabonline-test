@@ -5,7 +5,7 @@
 		"jsx": "preserve",
 		"lib": ["dom", "es2017"],
 		"moduleResolution": "node",
-		"allowJs": false,
+		"allowJs": true,
 		"noEmit": true,
 		"allowSyntheticDefaultImports": true,
 		"skipLibCheck": true,
@@ -18,14 +18,12 @@
 		"paths": {
 			"root/*": ["./*"],
 			"server/*": ["server/*"],
+			"model/*": ["model/*"],
 			"components/*": ["src/components/*"],
 			"hocs/*": ["src/hocs/*"],
 			"styles/*": ["src/styles/*"],
 			"store/*": ["store/*"],
-			"config/*": ["config/*"],
 			"utils/*": ["utils/*"]
 		}
-	},
-	"include": ["./"],
-	"exclude": ["node_modules"]
+	}
 }

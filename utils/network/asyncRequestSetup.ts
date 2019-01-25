@@ -1,9 +1,11 @@
 import axios from 'axios';
+const { envIsDev, internalApiHostDev, internalApiHostProd } = require('utils/config');
+
 /**
  * @function baseAsyncRequest
  */
 export const baseAsyncRequest = axios.create({
-	baseURL: 'http://localhost:1337/api', // TODO Make into config
+	baseURL: envIsDev ? internalApiHostDev : internalApiHostProd,
 	timeout: 20000
 });
 
