@@ -10,7 +10,7 @@ type Props = {
 	selectedAddress: AddressEntity;
 };
 
-const SelectedAddress: React.FunctionComponent<Props> = ({ selectedAddress }) => {
+const SelectedAddress: React.FunctionComponent<Props> = ({ selectedAddress, clearSelectedAddress }) => {
 	const getMarkup = () => {
 		if (isObjectWithValues(selectedAddress) === false) {
 			return <p>Ingen adress vald</p>;
@@ -22,6 +22,7 @@ const SelectedAddress: React.FunctionComponent<Props> = ({ selectedAddress }) =>
 			<div className={s('address')}>
 				<p className={s('text')}>{streetName}</p>
 				<p className={s('text')}>{`${zipCode} ${city} ${countryCode}`}</p>
+				<button onClick={clearSelectedAddress}>Rensa</button>
 			</div>
 		);
 

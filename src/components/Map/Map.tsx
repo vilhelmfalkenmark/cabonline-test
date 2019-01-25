@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { path } from 'ramda';
 import classNames from 'classnames/bind';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
+import { MarkerClusterer } from 'react-google-maps/lib/components/addons/MarkerClusterer';
+
 import styles from './Map.scss';
 import { MapStyles } from './MapStyles';
 import { getPosition } from 'utils/helpers/geoLocation';
@@ -18,7 +20,7 @@ const STOCKHOLM = {
 };
 
 const GoogleMaps = withScriptjs(
-	withGoogleMap(({ selectedAddress, isMarkerShown, userPosition }) => (
+	withGoogleMap(({ selectedAddress, isMarkerShown, userPosition, vehiclesPositions }) => (
 		<GoogleMap
 			defaultZoom={12}
 			defaultCenter={{
@@ -29,6 +31,7 @@ const GoogleMaps = withScriptjs(
 				lat: path(['latitude'], selectedAddress) || path(['coords', 'latitude'], userPosition),
 				lng: path(['longitude'], selectedAddress) || path(['coords', 'longitude'], userPosition)
 			}}
+			zoom={vehiclesPositions ? 15 : 12}
 			defaultOptions={{
 				scrollwheel: false,
 				styles: MapStyles,
@@ -43,13 +46,22 @@ const GoogleMaps = withScriptjs(
 						lat: path(['latitude'], selectedAddress),
 						lng: path(['longitude'], selectedAddress)
 					}}
-					icon={null}
-					// icon={{
-					// 	url: myMarker, // pass your image here
-					// 	scaledSize: { width: 70, height: 45 },
-					// 	size: { width: 70, height: 45 }
-					// }}
 				/>
+			)}
+			{vehiclesPositions && (
+				<MarkerClusterer gridSize={60} minimumClusterSize={40}>
+					{vehiclesPositions.map(vehiclePosition => (
+						<Marker
+							key={`${vehiclePosition.lat}-${vehiclePosition.lng}`}
+							position={{ lat: vehiclePosition.lat, lng: vehiclePosition.lng }}
+							icon={{
+								url: '/static/taxi.png',
+								scaledSize: { width: 100, height: 31 },
+								size: { width: 200, height: 73 }
+							}}
+						/>
+					))}
+				</MarkerClusterer>
 			)}
 		</GoogleMap>
 	))
@@ -90,7 +102,7 @@ class Map extends Component<Props, State> {
 			<div className={s('container')}>
 				<GoogleMaps
 					userPosition={isObjectWithValues(userPosition) ? userPosition : null}
-					vehiclePositions={getVehiclesPositions(vehicles)}
+					vehiclesPositions={getVehiclesPositions(vehicles)}
 					selectedAddress={selectedAddress}
 					isMarkerShown={isObjectWithValues(selectedAddress)}
 					googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2vvL4RqLyLTIwBZ0xiIHXdvEiz7h_PJA&v=3.exp&libraries=geometry,drawing,places"

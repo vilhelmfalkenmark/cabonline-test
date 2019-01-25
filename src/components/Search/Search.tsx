@@ -19,6 +19,7 @@ import styles from './Search.scss';
 const s = classNames.bind(styles);
 
 const SEARCH_DEBOUNCE_MILLISECONDS = 500;
+const POLL_INTERVAL_MILLISECONDS = 10000;
 const MINIMUM_SEARCH_CHARACTHERS = 3;
 
 type Props = {
@@ -38,6 +39,12 @@ class Search extends Component<Props> {
 		this.updateSearchTerm = this.updateSearchTerm.bind(this);
 		this.searchForContent = debounce(SEARCH_DEBOUNCE_MILLISECONDS, this.searchForContent.bind(this));
 		this.setSelectedAddress = this.setSelectedAddress.bind(this);
+		this.clearSelectedAddress = this.clearSelectedAddress.bind(this);
+		this.pollId = null;
+	}
+
+	componentWillUnmount() {
+		this.clearSelectedAddress();
 	}
 
 	/**
@@ -51,13 +58,23 @@ class Search extends Component<Props> {
 			lng: selectedAddress.longitude,
 			lat: selectedAddress.latitude
 		});
+
+		this.pollId = window.setInterval(
+			() =>
+				this.props.fetchVehiclesLocation({
+					lng: selectedAddress.longitude,
+					lat: selectedAddress.latitude
+				}),
+			POLL_INTERVAL_MILLISECONDS
+		);
 	}
 
 	/**
 	 * @function clearSelectedAddress
-	 * @param {Object} address
+	 * @returns {Void}
 	 */
 	clearSelectedAddress() {
+		window.clearInterval(this.pollId);
 		this.props.clearSelectedAddress();
 	}
 
@@ -93,7 +110,7 @@ class Search extends Component<Props> {
 						onSelectCallback={this.setSelectedAddress}
 					/>
 				</form>
-				<SelectedAddress selectedAddress={selectedAddress} />
+				<SelectedAddress selectedAddress={selectedAddress} clearSelectedAddress={this.clearSelectedAddress} />
 			</div>
 		);
 	}

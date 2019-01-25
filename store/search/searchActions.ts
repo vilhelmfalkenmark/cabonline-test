@@ -5,7 +5,8 @@ import {
 	SEARCH_FULFILLED,
 	SEARCH_REJECTED,
 	UPDATE_SEARCH_TERM,
-	SET_SELECTED_ADDRESS
+	SET_SELECTED_ADDRESS,
+	CLEAR_SELECTED_ADDRESS
 } from 'store/actionTypes';
 
 /**
@@ -19,6 +20,17 @@ export function setSelectedAddress(selectedAddress) {
 		payload: selectedAddress
 	};
 }
+
+/**
+ * @function clearSelectedAddress
+ * @returns {Object} redux action
+ */
+export function clearSelectedAddress() {
+	return {
+		type: CLEAR_SELECTED_ADDRESS
+	};
+}
+
 /**
  * @function updateSearchTerm
  * @param {String} searchTerm e.g "Kungsgatan 5"

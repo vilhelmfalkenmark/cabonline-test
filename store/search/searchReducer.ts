@@ -3,7 +3,8 @@ import {
 	SEARCH_FULFILLED,
 	SEARCH_REJECTED,
 	UPDATE_SEARCH_TERM,
-	SET_SELECTED_ADDRESS
+	SET_SELECTED_ADDRESS,
+	CLEAR_SELECTED_ADDRESS
 } from 'store/actionTypes';
 
 const iS = {
@@ -49,6 +50,12 @@ const searchReducer = (state = iS, action) => {
 				searchTerm: '',
 				selectedAddress: { ...action.payload },
 				data: []
+			};
+		}
+
+		case CLEAR_SELECTED_ADDRESS: {
+			return {
+				...iS
 			};
 		}
 		default:
