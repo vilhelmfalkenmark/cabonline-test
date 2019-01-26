@@ -1,6 +1,6 @@
-export const getPosition = options => {
+export const getPosition = () => {
 	return new Promise(function(resolve, reject) {
-		navigator.geolocation.getCurrentPosition(resolve, reject, options);
+		navigator.geolocation.getCurrentPosition(resolve, reject);
 	});
 };
 

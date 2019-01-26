@@ -4,14 +4,14 @@ const path = require('path');
 
 const CLIENT_PATH = path.join(__dirname, 'src');
 
+/* tslint:disable */
 module.exports = withTypescript({
 	...withSass({
 		cssModules: true,
-		exportOnlyLocals: true,
 		cssLoaderOptions: {
-			importLoaders: 1,
-			localIdentName: '[name]_[local]_[hash:base64:5]'
+			importLoaders: 1
 		},
+		exportOnlyLocals: true,
 		exclude: [path.resolve(CLIENT_PATH, 'styles/base.scss')],
 		/**
 		 * Custom webpack setup

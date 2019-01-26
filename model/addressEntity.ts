@@ -1,4 +1,4 @@
-export interface AddressEntity {
+export interface IAddressEntity {
 	id: number;
 	type: string;
 	zipCode: string;

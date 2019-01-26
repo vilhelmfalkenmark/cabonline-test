@@ -1,0 +1,36 @@
+{
+	"extends": ["tslint:recommended", "tslint-react"],
+	"defaultSeverity": "error",
+	"jsRules": {
+		"quotemark": [true, "single", "jsx-double"],
+		"indent": [true, "tabs"],
+		"trailing-comma": [false]
+	},
+	"rules": {
+		"arrow-parens": false,
+		"quotemark": [true, "single", "jsx-double"],
+		"ordered-imports": false,
+		"import-name": [false],
+		"only-arrow-functions": false,
+		"object-literal-sort-keys": false,
+		"no-console": [false],
+		"no-unused-expression": true,
+		"comment-format": false,
+		"semicolon": [true],
+		"indent": [true, "tabs"],
+		"outer-arrow-parens": [false],
+		"no-var-requires": [false],
+		"trailing-comma": [false],
+		"no-shadowed-variable": false,
+		"align": false,
+		"ban": false,
+		"class-name": true,
+		"eofline": true,
+		"jsx-no-multiline-js": false,
+		"jsx-no-lambda": false,
+		"react/jsx-boolean-value": true,
+		"max-line-length": [true, 120],
+		"variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore", "allow-pascal-case"]
+	},
+	"rulesDirectory": ["./"]
+}

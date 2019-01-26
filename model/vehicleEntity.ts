@@ -1,4 +1,4 @@
-export interface AddressEntity {
+export interface IIAddressEntity {
 	id: number;
 	login: string;
 }

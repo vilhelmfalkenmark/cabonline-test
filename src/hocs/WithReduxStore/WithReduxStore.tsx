@@ -20,7 +20,7 @@ function getOrCreateStore(initialState) {
 
 export default App => {
 	return class AppWithRedux extends React.Component {
-		static async getInitialProps(appContext) {
+		public static async getInitialProps(appContext) {
 			// Get or Create the store with `undefined` as initialState
 			// This allows you to set a custom default initialState
 			const reduxStore = getOrCreateStore();
@@ -44,7 +44,7 @@ export default App => {
 			this.reduxStore = getOrCreateStore(props.initialReduxState); // eslint-disable-line
 		}
 
-		render() {
+		public render() {
 			return <App {...this.props} reduxStore={this.reduxStore} />;
 		}
 	};

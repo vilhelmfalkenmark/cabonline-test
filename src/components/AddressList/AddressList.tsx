@@ -1,19 +1,20 @@
 import React from 'react';
 import classNames from 'classnames/bind';
+import { IAddressEntity } from 'model/IAddressEntity';
+
 import styles from './AddressList.scss';
-import { AddressEntity } from 'model/addressEntity';
 
 const s = classNames.bind(styles);
 
-interface Props {
+interface IProps {
 	fetching: boolean;
 	fulfilled: boolean;
 	rejected: boolean;
-	onSelectCallback: ((AddressEntity) => AddressEntity);
-	data: AddressEntity[];
+	onSelectCallback: ((IAddressEntity) => IAddressEntity);
+	data: IAddressEntity[];
 }
 
-const AddressList: React.FunctionComponent<Props> = ({ fetching, data, rejected, fulfilled, onSelectCallback }) => {
+const AddressList: React.FunctionComponent<IProps> = ({ fetching, data, rejected, fulfilled, onSelectCallback }) => {
 	if (fetching) {
 		return (
 			<ul
@@ -33,7 +34,7 @@ const AddressList: React.FunctionComponent<Props> = ({ fetching, data, rejected,
 		);
 	}
 
-	if (data.length && fulfilled)
+	if (data.length && fulfilled) {
 		return (
 			<ul className={s('container')}>
 				{data.map(address => (
@@ -45,6 +46,8 @@ const AddressList: React.FunctionComponent<Props> = ({ fetching, data, rejected,
 				))}
 			</ul>
 		);
+	}
+
 	return null;
 };
 

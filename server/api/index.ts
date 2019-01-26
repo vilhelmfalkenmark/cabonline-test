@@ -23,7 +23,8 @@ const apiResolver = function() {
 				res.json({ data });
 			})
 			.catch(err => {
-				res.json({ err: true });
+				res.sendStatus(404);
+				res.json({ err });
 			});
 	});
 	/**
@@ -36,7 +37,8 @@ const apiResolver = function() {
 				res.json({ data });
 			})
 			.catch(err => {
-				res.json({ err: true });
+				res.sendStatus(404);
+				res.json({ err });
 			});
 	});
 	return router;

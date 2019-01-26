@@ -6,10 +6,15 @@ import Head from 'next/head';
 
 import 'styles/main.scss';
 
-class Cabonline extends App<Props, State> {
-	render() {
+interface IProps {
+	Component: React.ComponentType<P>;
+	pageProps: any;
+	reduxStore: Interface;
+}
+
+class Cabonline extends App<IProps> {
+	public render() {
 		const { Component, pageProps, reduxStore } = this.props;
-		const reduxState = reduxStore.getState();
 
 		return (
 			<Container>

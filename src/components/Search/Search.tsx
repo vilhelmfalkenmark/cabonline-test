@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import react, { Component } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
 import { debounce } from 'utils/helpers/timing';
@@ -12,7 +12,7 @@ import { fetchVehiclesLocation } from 'store/vehicles/vehiclesActions';
 import Input from 'components/Input/Input';
 import AddressList from 'components/AddressList/AddressList';
 import SelectedAddress from 'components/SelectedAddress/SelectedAddress';
-import { AddressEntity } from 'model/addressEntity';
+import { IAddressEntity } from 'model/IAddressEntity';
 
 import styles from './Search.scss';
 
@@ -22,18 +22,18 @@ const SEARCH_DEBOUNCE_MILLISECONDS = 500;
 const POLL_INTERVAL_MILLISECONDS = 10000;
 const MINIMUM_SEARCH_CHARACTHERS = 3;
 
-type Props = {
+interface IProps {
 	searchTerm: string;
 	fetching: boolean;
 	fulfilled: boolean;
 	rejected: boolean;
-	data: AddressEntity[];
-	setSelectedAddress: ((AddressEntity) => AddressEntity);
-	updateSearchTerm: ((string) => string);
-	searchForContent: ((string) => string);
-};
+	data: IAddressEntity[];
+	setSelectedAddress: ((IAddressEntity) => IAddressEntity);
+	updateSearchTerm: ((searchTerm) => searchTerm);
+	searchForContent: ((searchTerm) => searchTerm);
+}
 
-class Search extends Component<Props> {
+class Search extends Component<IProps> {
 	constructor() {
 		super();
 		this.updateSearchTerm = this.updateSearchTerm.bind(this);
@@ -43,7 +43,7 @@ class Search extends Component<Props> {
 		this.pollId = null;
 	}
 
-	componentWillUnmount() {
+	public componentWillUnmount() {
 		this.clearSelectedAddress();
 	}
 
@@ -51,7 +51,7 @@ class Search extends Component<Props> {
 	 * @function setSelectedAddress
 	 * @param {Object} selectedAddress
 	 */
-	setSelectedAddress(selectedAddress) {
+	public setSelectedAddress(selectedAddress) {
 		this.props.setSelectedAddress(selectedAddress);
 
 		this.props.fetchVehiclesLocation({
@@ -73,7 +73,7 @@ class Search extends Component<Props> {
 	 * @function clearSelectedAddress
 	 * @returns {Void}
 	 */
-	clearSelectedAddress() {
+	public clearSelectedAddress() {
 		window.clearInterval(this.pollId);
 		this.props.clearSelectedAddress();
 	}
@@ -82,7 +82,7 @@ class Search extends Component<Props> {
 	 * @function searchForContent
 	 * @param {String} value
 	 */
-	searchForContent(value) {
+	public searchForContent(value) {
 		if (value.length >= MINIMUM_SEARCH_CHARACTHERS) {
 			this.props.searchForContent(value);
 		}
@@ -92,12 +92,12 @@ class Search extends Component<Props> {
 	 * @function searchForContent
 	 * @param {Object} target
 	 */
-	updateSearchTerm({ target }) {
+	public updateSearchTerm({ target }) {
 		this.props.updateSearchTerm(target.value);
 		this.searchForContent(target.value);
 	}
 
-	render() {
+	public render() {
 		const { searchTerm, fetching, data, fulfilled, selectedAddress } = this.props;
 		return (
 			<div className={s('container')}>

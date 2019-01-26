@@ -4,17 +4,17 @@ import styles from './Input.scss';
 
 const s = classNames.bind(styles);
 
-interface Props {
+interface IProps {
 	label: string;
-	name: boolean;
-	type: boolean;
-	onChangeCallback: ((string) => string);
+	name: string;
+	type?: string;
+	onChangeCallback: ((target) => target);
 	value: string;
 	placeholder: string;
 	className: string;
 }
 
-const Input: React.FunctionComponent<Props> = ({
+const Input: React.FunctionComponent<IProps> = ({
 	label,
 	name = '',
 	type = 'text',

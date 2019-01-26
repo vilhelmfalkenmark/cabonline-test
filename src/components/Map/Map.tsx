@@ -9,7 +9,7 @@ import styles from './Map.scss';
 import { MapStyles } from './MapStyles';
 import { getPosition } from 'utils/helpers/geoLocation';
 import { isObjectWithValues } from 'utils/helpers/objects';
-import { AddressEntity } from 'model/addressEntity';
+import { IAddressEntity } from 'model/IAddressEntity';
 import { getVehiclesPositions } from 'utils/selectors/vehicles';
 
 const s = classNames.bind(styles);
@@ -67,11 +67,15 @@ const GoogleMaps = withScriptjs(
 	))
 );
 
-interface Props {
-	selectedAddress: AddressEntity;
+interface IProps {
+	selectedAddress: IAddressEntity;
 }
 
-class Map extends Component<Props, State> {
+interface IState {
+	userPosition: any; // FIX
+}
+
+class Map extends Component<IProps, IState> {
 	constructor() {
 		super();
 
@@ -80,7 +84,7 @@ class Map extends Component<Props, State> {
 		};
 	}
 
-	componentDidMount() {
+	public componentDidMount() {
 		Promise.resolve(
 			getPosition()
 				.then(userPosition => {
@@ -94,7 +98,7 @@ class Map extends Component<Props, State> {
 		);
 	}
 
-	render() {
+	public render() {
 		const { selectedAddress, vehicles } = this.props;
 		const { userPosition } = this.state;
 
@@ -105,7 +109,7 @@ class Map extends Component<Props, State> {
 					vehiclesPositions={getVehiclesPositions(vehicles)}
 					selectedAddress={selectedAddress}
 					isMarkerShown={isObjectWithValues(selectedAddress)}
-					googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2vvL4RqLyLTIwBZ0xiIHXdvEiz7h_PJA&v=3.exp&libraries=geometry,drawing,places"
+					googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2vvL4RqLyLTIwBZ0xiIHXdvEiz7h_PJA&v=3.exp&libraries=geometry,drawing,places" /* tslint:disable-line */
 					loadingElement={<div style={{ height: `100%` }} />}
 					containerElement={<div style={{ height: `100%` }} />}
 					mapElement={<div style={{ height: `100%` }} />}
@@ -117,7 +121,7 @@ class Map extends Component<Props, State> {
 
 const mapStateToProps = ({ search, vehicles }) => ({
 	selectedAddress: search.selectedAddress,
-	vehicles: vehicles
+	vehicles
 });
 
 export default connect(mapStateToProps)(Map);
