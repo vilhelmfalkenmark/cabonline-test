@@ -24,6 +24,7 @@
 		"no-shadowed-variable": false,
 		"align": false,
 		"ban": false,
+		"interface-name": false,
 		"class-name": true,
 		"eofline": true,
 		"jsx-no-multiline-js": false,

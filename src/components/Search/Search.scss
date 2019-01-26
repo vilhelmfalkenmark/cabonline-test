@@ -1,19 +1,30 @@
 @import '~styles/variables';
 @import '~styles/colors';
+@import '~styles/mixins';
 
 .container {
 	z-index: $z-index-two;
-	padding: $base-margin;
 	position: absolute;
 	width: 100%;
 	display: flex;
-	justify-content: space-between;
-	align-items: flex-start;
+	flex-direction: column;
+
+	@include breakpoint($breakpoint-medium) {
+		padding: $base-margin;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: flex-start;
+	}
 }
 
 .form {
-	box-shadow: $box-shadow;
 	background: $white;
 	width: 100%;
-	max-width: 460px;
+	position: relative;
+	z-index: $z-index-two;
+
+	@include breakpoint($breakpoint-medium) {
+		max-width: 460px;
+		box-shadow: $box-shadow;
+	}
 }

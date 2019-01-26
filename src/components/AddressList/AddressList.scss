@@ -34,6 +34,18 @@
 	padding: $base-margin $two-base-margin;
 	background: $white;
 	border: none;
+	outline: none;
+	transition: background 200ms ease;
+	cursor: pointer;
+
+	@include breakpoint($breakpoint-large) {
+		&:hover {
+			background: $grey1;
+		}
+		&:active {
+			background: $grey2;
+		}
+	}
 }
 
 .spinnerContainer {

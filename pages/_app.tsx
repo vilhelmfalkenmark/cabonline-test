@@ -3,16 +3,17 @@ import React from 'react';
 import WithReduxStore from 'hocs/WithReduxStore/WithReduxStore';
 import { Provider } from 'react-redux';
 import Head from 'next/head';
+import { ReduxStateEntity } from 'model/reduxStateEntity';
 
 import 'styles/main.scss';
 
-interface IProps {
-	Component: React.ComponentType<P>;
+interface Props {
+	Component: React.ComponentType;
 	pageProps: any;
-	reduxStore: Interface;
+	reduxStore: ReduxStateEntity;
 }
 
-class Cabonline extends App<IProps> {
+class Cabonline extends App<Props> {
 	public render() {
 		const { Component, pageProps, reduxStore } = this.props;
 

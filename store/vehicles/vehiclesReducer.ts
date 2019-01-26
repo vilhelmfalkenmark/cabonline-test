@@ -25,7 +25,7 @@ const vehiclesReducer = (state = iS, action) => {
 		}
 
 		case VEHICLES_LOCATION_FULFILLED: {
-			return { ...state, fetching: false, fulfilled: true, data: [...action.payload.data] };
+			return { ...state, fetching: false, fulfilled: true, data: state.polling ? [...action.payload.data] : [] };
 		}
 
 		case VEHICLES_LOCATION_REJECTED: {

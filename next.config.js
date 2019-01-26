@@ -9,7 +9,8 @@ module.exports = withTypescript({
 	...withSass({
 		cssModules: true,
 		cssLoaderOptions: {
-			importLoaders: 1
+			importLoaders: 1,
+			localIdentName: '[name]_[local]_[hash:base64:5]'
 		},
 		exportOnlyLocals: true,
 		exclude: [path.resolve(CLIENT_PATH, 'styles/base.scss')],

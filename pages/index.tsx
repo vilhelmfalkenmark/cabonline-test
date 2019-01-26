@@ -1,12 +1,12 @@
 import React from 'react';
 import Search from 'components/Search/Search';
-import Map from 'components/Map/Map';
+import MapWrapper from 'components/Map/MapWrapper';
 
 const IndexPage: React.FunctionComponent = () => {
 	return (
 		<main className={'main-container'}>
 			<Search />
-			<Map />
+			<MapWrapper />
 		</main>
 	);
 };

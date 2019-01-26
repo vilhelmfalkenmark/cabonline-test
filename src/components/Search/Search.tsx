@@ -1,4 +1,4 @@
-import react, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
 import { debounce } from 'utils/helpers/timing';
@@ -12,32 +12,38 @@ import { fetchVehiclesLocation } from 'store/vehicles/vehiclesActions';
 import Input from 'components/Input/Input';
 import AddressList from 'components/AddressList/AddressList';
 import SelectedAddress from 'components/SelectedAddress/SelectedAddress';
-import { IAddressEntity } from 'model/IAddressEntity';
+import { AddressEntity } from 'model/addressEntity';
+import { VehiclesPositionEntity } from 'model/positionEntitity';
 
 import styles from './Search.scss';
 
 const s = classNames.bind(styles);
 
-const SEARCH_DEBOUNCE_MILLISECONDS = 500;
-const POLL_INTERVAL_MILLISECONDS = 10000;
-const MINIMUM_SEARCH_CHARACTHERS = 3;
+const { vehiclesPollInterval, searchDebounce, minimumSearchCharacters } = require('utils/config');
 
-interface IProps {
+interface Props {
 	searchTerm: string;
 	fetching: boolean;
 	fulfilled: boolean;
 	rejected: boolean;
-	data: IAddressEntity[];
-	setSelectedAddress: ((IAddressEntity) => IAddressEntity);
-	updateSearchTerm: ((searchTerm) => searchTerm);
-	searchForContent: ((searchTerm) => searchTerm);
+	data: AddressEntity[];
+	selectedAddress: AddressEntity;
+	setSelectedAddress: ((AddressEntity) => AddressEntity);
+	clearSelectedAddress: (() => void);
+	fetchVehiclesLocation: ((VehiclesPositionEntity) => VehiclesPositionEntity);
+	updateSearchTerm: ((searchTerm: string) => string);
+	searchForContent: ((searchTerm: string) => string);
 }
 
-class Search extends Component<IProps> {
-	constructor() {
-		super();
+interface Search {
+	pollId: number;
+}
+
+class Search extends React.Component<Props> {
+	constructor(props) {
+		super(props);
 		this.updateSearchTerm = this.updateSearchTerm.bind(this);
-		this.searchForContent = debounce(SEARCH_DEBOUNCE_MILLISECONDS, this.searchForContent.bind(this));
+		this.searchForContent = debounce(searchDebounce, this.searchForContent.bind(this));
 		this.setSelectedAddress = this.setSelectedAddress.bind(this);
 		this.clearSelectedAddress = this.clearSelectedAddress.bind(this);
 		this.pollId = null;
@@ -52,6 +58,14 @@ class Search extends Component<IProps> {
 	 * @param {Object} selectedAddress
 	 */
 	public setSelectedAddress(selectedAddress) {
+		/**
+		 * If a polling is currently active lets
+		 * kill it before it setting a new.
+		 */
+		if (this.pollId) {
+			window.clearInterval(this.pollId);
+		}
+
 		this.props.setSelectedAddress(selectedAddress);
 
 		this.props.fetchVehiclesLocation({
@@ -65,7 +79,7 @@ class Search extends Component<IProps> {
 					lng: selectedAddress.longitude,
 					lat: selectedAddress.latitude
 				}),
-			POLL_INTERVAL_MILLISECONDS
+			vehiclesPollInterval
 		);
 	}
 
@@ -83,7 +97,7 @@ class Search extends Component<IProps> {
 	 * @param {String} value
 	 */
 	public searchForContent(value) {
-		if (value.length >= MINIMUM_SEARCH_CHARACTHERS) {
+		if (value.length >= minimumSearchCharacters) {
 			this.props.searchForContent(value);
 		}
 	}
@@ -101,7 +115,12 @@ class Search extends Component<IProps> {
 		const { searchTerm, fetching, data, fulfilled, selectedAddress } = this.props;
 		return (
 			<div className={s('container')}>
-				<form className={s('form')}>
+				<form
+					className={s('form')}
+					onSubmit={e => {
+						e.preventDefault();
+					}}
+				>
 					<Input value={searchTerm} onChangeCallback={this.updateSearchTerm} placeholder="Sök" />
 					<AddressList
 						data={data}

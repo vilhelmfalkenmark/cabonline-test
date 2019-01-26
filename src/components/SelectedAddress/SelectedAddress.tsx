@@ -1,39 +1,46 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './SelectedAddress.scss';
-import { IAddressEntity } from 'model/IAddressEntity';
+import { AddressEntity } from 'model/addressEntity';
 import { isObjectWithValues } from 'utils/helpers/objects';
 
 const s = classNames.bind(styles);
 
-interface IProps {
-	selectedAddress: IAddressEntity;
+interface Props {
+	selectedAddress: AddressEntity;
 	clearSelectedAddress: (() => void);
 }
 
-const SelectedAddress: React.FunctionComponent<IProps> = ({ selectedAddress, clearSelectedAddress }) => {
+const SelectedAddress: React.FunctionComponent<Props> = ({ selectedAddress, clearSelectedAddress }) => {
 	const getMarkup = () => {
 		if (isObjectWithValues(selectedAddress) === false) {
-			return <p>Ingen adress vald</p>;
+			return <h4 className={s('heading')}>Ingen adress vald</h4>;
 		}
 
 		const { streetName = null, zipCode = null, city = null, countryCode = null } = selectedAddress;
 		return (
-			<div className={s('address')}>
-				<p className={s('text')}>{streetName}</p>
-				<p className={s('text')}>{`${zipCode} ${city} ${countryCode}`}</p>
-				<button onClick={clearSelectedAddress}>Rensa</button>
-			</div>
+			<header className={s('address')}>
+				<div>
+					<h4 className={s('heading')}>Du har valt adress:</h4>
+					<p className={s('text')}>{streetName}</p>
+					<p className={s('text')}>{`${zipCode} ${city} ${countryCode}`}</p>
+				</div>
+				<button className={s('button')} onClick={clearSelectedAddress}>
+					Avboka
+				</button>
+			</header>
 		);
 
 		return null;
 	};
 
 	return (
-		<section className={s('container')}>
+		<section
+			className={s('container', {
+				container_addressIsSelected: selectedAddress.streetName
+			})}
+		>
 			{getMarkup()}
-
-			{/* <p>{selectedAddress.streetName}</p> */}
 		</section>
 	);
 };

@@ -1,20 +1,24 @@
 import React from 'react';
 import classNames from 'classnames/bind';
-import { IAddressEntity } from 'model/IAddressEntity';
+import { AddressEntity } from 'model/addressEntity';
+import { isArrayWithContent } from 'utils/helpers/arrays';
 
 import styles from './AddressList.scss';
 
 const s = classNames.bind(styles);
 
-interface IProps {
+interface Props {
 	fetching: boolean;
 	fulfilled: boolean;
 	rejected: boolean;
-	onSelectCallback: ((IAddressEntity) => IAddressEntity);
-	data: IAddressEntity[];
+	onSelectCallback: ((AddressEntity) => AddressEntity);
+	data: AddressEntity[];
 }
 
-const AddressList: React.FunctionComponent<IProps> = ({ fetching, data, rejected, fulfilled, onSelectCallback }) => {
+const AddressList: React.FunctionComponent<Props> = ({ fetching, data, rejected, fulfilled, onSelectCallback }) => {
+	/**
+	 * Fetching state
+	 */
 	if (fetching) {
 		return (
 			<ul
@@ -34,7 +38,10 @@ const AddressList: React.FunctionComponent<IProps> = ({ fetching, data, rejected
 		);
 	}
 
-	if (data.length && fulfilled) {
+	/**
+	 * Fulfilled state
+	 */
+	if (isArrayWithContent(data) && fulfilled) {
 		return (
 			<ul className={s('container')}>
 				{data.map(address => (
@@ -44,6 +51,17 @@ const AddressList: React.FunctionComponent<IProps> = ({ fetching, data, rejected
 						</button>
 					</li>
 				))}
+			</ul>
+		);
+	}
+
+	/**
+	 * Rejected state
+	 */
+	if (rejected) {
+		return (
+			<ul className={s('container')}>
+				<li className={s('item')}>Datan kunde tyvärr inte hämtas!</li>
 			</ul>
 		);
 	}
