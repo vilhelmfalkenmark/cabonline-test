@@ -1,0 +1,33 @@
+@import '~styles/colors';
+@import '~styles/variables';
+
+.container {
+	width: 100%;
+}
+
+.label {
+	color: $grey4;
+	margin-left: $base-margin;
+	margin-bottom: $base-margin;
+	font-size: 12px;
+	display: block;
+}
+
+.input {
+	font-size: $font-size-medium;
+	border: 1px solid $white;
+	padding: $base-margin $two-base-margin;
+	min-height: $five-base-margin;
+	width: 100%;
+	display: block;
+	outline: none;
+	border-bottom: 2px solid $yellow;
+
+	&::placeholder {
+		font-size: $font-size-medium;
+	}
+
+	&:focus {
+		border-color: $yellow;
+	}
+}
