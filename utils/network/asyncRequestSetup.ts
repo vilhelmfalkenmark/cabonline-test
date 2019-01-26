@@ -1,10 +1,12 @@
 import axios from 'axios';
+const { envIsDev, internalApiHostDev, internalApiHostProd } = require('utils/config');
+
 /**
  * @function baseAsyncRequest
  */
 export const baseAsyncRequest = axios.create({
-	baseURL: 'https://cabonline-frontend-test.herokuapp.com/', // TODO Make into config
+	baseURL: envIsDev ? internalApiHostDev : internalApiHostProd,
 	timeout: 20000
 });
 
-export default contentAsyncRequest;
+export default baseAsyncRequest;

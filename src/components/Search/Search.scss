@@ -1,0 +1,30 @@
+@import '~styles/variables';
+@import '~styles/colors';
+@import '~styles/mixins';
+
+.container {
+	z-index: $z-index-two;
+	position: absolute;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+
+	@include breakpoint($breakpoint-medium) {
+		padding: $base-margin;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: flex-start;
+	}
+}
+
+.form {
+	background: $white;
+	width: 100%;
+	position: relative;
+	z-index: $z-index-two;
+
+	@include breakpoint($breakpoint-medium) {
+		max-width: 460px;
+		box-shadow: $box-shadow;
+	}
+}

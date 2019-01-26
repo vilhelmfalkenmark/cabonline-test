@@ -1,0 +1,49 @@
+@import '~styles/variables';
+@import '~styles/colors';
+@import '~styles/mixins';
+
+.container {
+	background: $white;
+	font-size: $font-size-small;
+	padding: $half-base-margin $base-margin;
+	box-shadow: $box-shadow;
+	position: fixed;
+	z-index: $z-index-one;
+	width: 100%;
+	top: $five-base-margin;
+	text-align: center;
+
+	@include breakpoint($breakpoint-medium) {
+		position: static;
+		width: auto;
+		padding: $two-base-margin;
+	}
+}
+
+.heading {
+	margin: $base-margin 0;
+}
+
+.text {
+	font-size: $font-size-small;
+	margin: $half-base-margin 0;
+}
+
+.address {
+	display: flex;
+	text-align: left;
+	justify-content: space-between;
+	align-items: center;
+
+	@include breakpoint($breakpoint-medium) {
+		flex-direction: column;
+	}
+}
+
+.button {
+	@include primaryButton();
+
+	@include breakpoint($breakpoint-medium) {
+		margin-top: $base-margin;
+	}
+}
