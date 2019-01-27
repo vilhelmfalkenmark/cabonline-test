@@ -14,8 +14,9 @@ import AddressList from 'components/AddressList/AddressList';
 import SelectedAddress from 'components/SelectedAddress/SelectedAddress';
 import { AddressEntity } from 'model/addressEntity';
 import { VehiclesPositionEntity } from 'model/positionEntitity';
+import { InputEntity } from 'model/inputEntity';
 
-import styles from './Search.scss';
+import styles from './Header.scss';
 
 const s = classNames.bind(styles);
 
@@ -35,11 +36,11 @@ interface Props {
 	searchForContent: ((searchTerm: string) => string);
 }
 
-interface Search {
+interface Header {
 	pollId: number;
 }
 
-class Search extends React.Component<Props> {
+class Header extends React.Component<Props> {
 	constructor(props) {
 		super(props);
 		this.updateSearchTerm = this.updateSearchTerm.bind(this);
@@ -57,7 +58,7 @@ class Search extends React.Component<Props> {
 	 * @function setSelectedAddress
 	 * @param {Object} selectedAddress
 	 */
-	public setSelectedAddress(selectedAddress) {
+	public setSelectedAddress(selectedAddress: AddressEntity) {
 		/**
 		 * If a polling is currently active lets
 		 * kill it before it setting a new.
@@ -106,9 +107,9 @@ class Search extends React.Component<Props> {
 	 * @function searchForContent
 	 * @param {Object} target
 	 */
-	public updateSearchTerm({ target }) {
-		this.props.updateSearchTerm(target.value);
-		this.searchForContent(target.value);
+	public updateSearchTerm(e: InputEntity) {
+		this.props.updateSearchTerm(e.target.value);
+		this.searchForContent(e.target.value);
 	}
 
 	public render() {
@@ -121,7 +122,12 @@ class Search extends React.Component<Props> {
 						e.preventDefault();
 					}}
 				>
-					<Input value={searchTerm} onChangeCallback={this.updateSearchTerm} placeholder="Sök" />
+					<Input
+						autoFocus={true}
+						value={searchTerm}
+						onChangeCallback={this.updateSearchTerm}
+						placeholder="Sök efter adress"
+					/>
 					<AddressList
 						data={data}
 						fetching={fetching}
@@ -164,4 +170,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(Search);
+)(Header);
