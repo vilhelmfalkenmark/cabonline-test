@@ -23,26 +23,17 @@ interface State {
 }
 
 class MapWrapper extends Component<Props, State> {
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			userPosition: {
-				coords: {
-					latitude: null,
-					longitude: null
-				}
-			}
-		};
-	}
+	public state = {
+		userPosition: {}
+	};
 
 	public componentDidMount() {
 		Promise.resolve(
 			getPosition()
 				.then(userPosition => {
-					this.setState({
+					return this.setState(state => ({
 						userPosition
-					});
+					}));
 				})
 				.catch(err => {
 					console.error(err.message);

@@ -3,7 +3,6 @@
 	"author": "Vilhelm Falkenmark",
 	"homepage": "https://cabonline-vilhelmfalkenmark.herokuapp.com/",
 	"version": "1.0.0",
-	"license": "MIT",
 	"engines": {
 		"node": "10.13",
 		"yarn": "1.13.0"
@@ -42,7 +41,6 @@
 		"build": "next build",
 		"start": "NODE_ENV=production node server/index.ts",
 		"lint": "tslint --project '.'",
-		"heroku-postbuild": "yarn --only=dev && yarn && yarn build",
-		"type-check": "tsc"
+		"heroku-postbuild": "yarn --only=dev && yarn && yarn build"
 	}
 }

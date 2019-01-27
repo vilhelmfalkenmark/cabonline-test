@@ -1,38 +1,33 @@
-# Vilhelm Falkenmark Cabonline Test
+# Vilhelm Falkenmark Cabonline test
+
+Built with Next.js, Typescript, React, Redux.
+
+Hosted on: https://cabonline-vilhelmfalkenmark.herokuapp.com/
+
+github repo: https://github.com/vilhelmfalkenmark/cabonline-test
 
 ## Installation
 
-1. Have node version 10.13 and yarn version 1.13. installed
-2. Run
+1.  Have node version 10.13 installed
+2.  Have yarn version 1.13.0 installed
+3.  run
 
 ```sh
 yarn
 ```
 
-to install node_modules.
+## Develop
 
-3. Run
+Start develop mode with
 
 ```sh
 yarn dev
 ```
 
-to start dev mode on http://localhost:1337
+And go to http://localhost:1337
 
-4. To run linting run
-
-```sh
-   yarn lint
-```
-
-5. For typechecking run
+## TSLint
 
 ```sh
-   yarn type-check
+yarn lint
 ```
-
-### Contact
-
-Vilhelm Falkenmark
-vilhelmfalkenmark@gmail.com
-0705580198

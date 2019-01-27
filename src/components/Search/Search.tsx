@@ -14,6 +14,7 @@ import AddressList from 'components/AddressList/AddressList';
 import SelectedAddress from 'components/SelectedAddress/SelectedAddress';
 import { AddressEntity } from 'model/addressEntity';
 import { VehiclesPositionEntity } from 'model/positionEntitity';
+import { InputEntity } from 'model/inputEntity';
 
 import styles from './Search.scss';
 
@@ -57,7 +58,7 @@ class Search extends React.Component<Props> {
 	 * @function setSelectedAddress
 	 * @param {Object} selectedAddress
 	 */
-	public setSelectedAddress(selectedAddress) {
+	public setSelectedAddress(selectedAddress: AddressEntity) {
 		/**
 		 * If a polling is currently active lets
 		 * kill it before it setting a new.
@@ -106,9 +107,9 @@ class Search extends React.Component<Props> {
 	 * @function searchForContent
 	 * @param {Object} target
 	 */
-	public updateSearchTerm({ target }) {
-		this.props.updateSearchTerm(target.value);
-		this.searchForContent(target.value);
+	public updateSearchTerm(e: InputEntity) {
+		this.props.updateSearchTerm(e.target.value);
+		this.searchForContent(e.target.value);
 	}
 
 	public render() {
