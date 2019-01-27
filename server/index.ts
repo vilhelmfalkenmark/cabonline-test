@@ -29,10 +29,10 @@ app.prepare()
 			if (err) {
 				throw err;
 			}
-			console.log(`Ready on http://localhost:${PORT}`); // eslint-disable-line
+			console.log(`Ready on http://localhost:${PORT}`);
 		});
 	})
 	.catch(ex => {
-		console.error(ex.stack); // eslint-disable-line
+		console.error(ex.stack);
 		process.exit(1);
 	});

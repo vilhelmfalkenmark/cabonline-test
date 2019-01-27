@@ -16,7 +16,7 @@ import { AddressEntity } from 'model/addressEntity';
 import { VehiclesPositionEntity } from 'model/positionEntitity';
 import { InputEntity } from 'model/inputEntity';
 
-import styles from './Search.scss';
+import styles from './Header.scss';
 
 const s = classNames.bind(styles);
 
@@ -36,11 +36,11 @@ interface Props {
 	searchForContent: ((searchTerm: string) => string);
 }
 
-interface Search {
+interface Header {
 	pollId: number;
 }
 
-class Search extends React.Component<Props> {
+class Header extends React.Component<Props> {
 	constructor(props) {
 		super(props);
 		this.updateSearchTerm = this.updateSearchTerm.bind(this);
@@ -165,4 +165,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(Search);
+)(Header);
