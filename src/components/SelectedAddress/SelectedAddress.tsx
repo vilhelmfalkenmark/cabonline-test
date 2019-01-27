@@ -13,7 +13,7 @@ interface Props {
 
 const SelectedAddress: React.FunctionComponent<Props> = ({ selectedAddress, clearSelectedAddress }) => {
 	const getMarkup = () => {
-		if (isObjectWithValues(selectedAddress) === false) {
+		if (!isObjectWithValues(selectedAddress)) {
 			return <h4 className={s('heading')}>Ingen adress vald</h4>;
 		}
 
@@ -21,7 +21,7 @@ const SelectedAddress: React.FunctionComponent<Props> = ({ selectedAddress, clea
 		return (
 			<header className={s('address')}>
 				<div>
-					<h4 className={s('heading')}>Du har valt adress:</h4>
+					<h4 className={s('heading')}>Ni har valt adress:</h4>
 					<p className={s('text')}>{streetName}</p>
 					<p className={s('text')}>{`${zipCode} ${city} ${countryCode}`}</p>
 				</div>

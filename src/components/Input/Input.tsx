@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './Input.scss';
+import { InputEntity } from 'model/inputEntity';
 
 const s = classNames.bind(styles);
 
@@ -8,10 +9,11 @@ interface Props {
 	label: string;
 	name: string;
 	type?: string;
-	onChangeCallback: ((target) => any);
+	onChangeCallback: ((InputEntity) => InputEntity);
 	value: string;
 	placeholder: string;
 	className: string;
+	autoFocus: boolean;
 }
 
 const Input: React.FunctionComponent<Props> = ({
@@ -20,6 +22,7 @@ const Input: React.FunctionComponent<Props> = ({
 	type = 'text',
 	onChangeCallback,
 	value = '',
+	autoFocus,
 	placeholder = '',
 	className
 }) => (
@@ -33,6 +36,7 @@ const Input: React.FunctionComponent<Props> = ({
 			className={s('input')}
 			placeholder={placeholder}
 			name={name}
+			autoFocus={autoFocus}
 			type={type}
 			onChange={onChangeCallback}
 			value={value}

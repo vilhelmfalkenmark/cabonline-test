@@ -1,24 +1,29 @@
 const { Router } = require('express');
 const axios = require('axios');
-const { externalApiHost } = require('../../utils/config.ts');
+const { path } = require('ramda');
+
+const { cabonlineApiHost } = require('../../utils/config.ts');
 
 const router = Router();
 
 const baseAsyncRequest = axios.create({
-	baseURL: 'https://cabonline-frontend-test.herokuapp.com',
+	baseURL: cabonlineApiHost,
 	timeout: 20000
 });
 
 const apiResolver = function() {
 	router.get('/', (_, res) => {
-		res.json({ message: 'Välkommen till Cabonline apiet' });
+		res.json({
+			message:
+				'Välkommen till Cabonline apiet. Tillgängliga routes är /addresses?q=ADDRESS_VALUE och /vehicles?lng=LONGITUD&lat=LATITUD' /* tslint:disable-line */
+		});
 	});
 	/**
 	 * Adresses route
 	 */
 	router.get('/addresses', (req, res) => {
 		baseAsyncRequest
-			.get(`/addresses?q=${req.query.q}`)
+			.get(`/addresses?q=${path(['query', 'q'], req)}`)
 			.then(({ data }) => {
 				res.json({ data });
 			})
@@ -32,7 +37,7 @@ const apiResolver = function() {
 	 */
 	router.get('/vehicles', (req, res) => {
 		baseAsyncRequest
-			.get(`/vehicles?lat=${req.query.lat}&lng=${req.query.lng}`)
+			.get(`/vehicles?lat=${path(['query', 'lat'], req)}&lng=${path(['query', 'lng'], req)}`)
 			.then(({ data }) => {
 				res.json({ data });
 			})

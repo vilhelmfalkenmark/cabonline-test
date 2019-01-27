@@ -9,23 +9,22 @@ import 'styles/main.scss';
 
 interface Props {
 	Component: React.ComponentType;
-	pageProps: any;
 	reduxStore: ReduxStateEntity;
 }
 
 class Cabonline extends App<Props> {
 	public render() {
-		const { Component, pageProps, reduxStore } = this.props;
+		const { Component, reduxStore } = this.props;
 
 		return (
 			<Container>
 				<Head>
 					<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-					<meta name="description" content={'Vilhelm Falkenmark test'} />
+					<meta name="description" content={'Vilhelm Falkenmark Cabonline test'} />
 					<title>Cabonline test | Vilhelm Falkenmark</title>
 				</Head>
 				<Provider store={reduxStore}>
-					<Component {...pageProps} />
+					<Component />
 				</Provider>
 			</Container>
 		);
