@@ -13,6 +13,7 @@ interface Props {
 	value: string;
 	placeholder: string;
 	className: string;
+	autoFocus: boolean;
 }
 
 const Input: React.FunctionComponent<Props> = ({
@@ -21,6 +22,7 @@ const Input: React.FunctionComponent<Props> = ({
 	type = 'text',
 	onChangeCallback,
 	value = '',
+	autoFocus,
 	placeholder = '',
 	className
 }) => (
@@ -34,6 +36,7 @@ const Input: React.FunctionComponent<Props> = ({
 			className={s('input')}
 			placeholder={placeholder}
 			name={name}
+			autoFocus={autoFocus}
 			type={type}
 			onChange={onChangeCallback}
 			value={value}

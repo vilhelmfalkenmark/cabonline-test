@@ -122,7 +122,12 @@ class Header extends React.Component<Props> {
 						e.preventDefault();
 					}}
 				>
-					<Input value={searchTerm} onChangeCallback={this.updateSearchTerm} placeholder="Sök" />
+					<Input
+						autoFocus={true}
+						value={searchTerm}
+						onChangeCallback={this.updateSearchTerm}
+						placeholder="Sök efter adress"
+					/>
 					<AddressList
 						data={data}
 						fetching={fetching}
